@@ -159,7 +159,14 @@ function Recipe() {
         </div>
       )}
       {isPending && recipeId && <div className="loader"></div>}
-      {error && recipeId && <div className="w-3/4">Error</div>}
+      {error && recipeId && (
+        <div className="w-3/4 text-center">
+          <p className="gap-4 p-16">
+            There was an error loading recipe. Please try again or search for
+            another recipe
+          </p>
+        </div>
+      )}
       {recipe && (
         <>
           {" "}

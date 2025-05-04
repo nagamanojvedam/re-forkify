@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { myApiUrl, apiKey } from "./config";
+import { apiUrl, apiKey } from "./config";
 
 export const getRecipes = async (search) => {
   const {
@@ -8,7 +8,7 @@ export const getRecipes = async (search) => {
       data: { recipes },
       status,
     },
-  } = await axios(`${myApiUrl}?search=${search}`, {
+  } = await axios(`${apiUrl}?search=${search}`, {
     method: "GET",
     params: {
       key: apiKey,
@@ -26,9 +26,12 @@ export const createRecipe = async (newRecipe) => {
       data: { recipe },
       status,
     },
-  } = await axios(`${myApiUrl}`, {
+  } = await axios(`${apiUrl}`, {
     method: "POST",
     data: newRecipe,
+    params: {
+      key: apiKey,
+    },
   });
   if (status === "error") throw new Error("Cannot load the recipes");
 
@@ -36,21 +39,27 @@ export const createRecipe = async (newRecipe) => {
 };
 
 export const getRecipe = async (id) => {
-  console.log("id", id);
   const {
     data: {
       data: { recipe },
       status,
     },
-  } = await axios(`${myApiUrl}/${id}`);
+  } = await axios(`${apiUrl}/${id}`, {
+    params: {
+      key: apiKey,
+    },
+  });
+  if (status === "error") throw new Error("Cannot load the recipes");
 
-  if (status === "error") throw new Error("Cannot load the recipe");
   return recipe;
 };
 
 export const deleteRecipe = async (id) => {
-  const response = await axios(`${myApiUrl}/${id}`, {
+  const response = await axios(`${apiUrl}/${id}`, {
     method: "DELETE",
+    params: {
+      key: apiKey,
+    },
   });
   if (response.status === "error") throw new Error("Cannot load the recipes");
 

@@ -3,7 +3,7 @@ import { getRecipes } from "../utils/recipesApi";
 
 export function useAllRecipes(search) {
   const { data, isPending, error } = useQuery({
-    queryKey: ["recipes", search],
+    queryKey: ["recipes", search || "all"],
     queryFn: () => getRecipes(search),
   });
 

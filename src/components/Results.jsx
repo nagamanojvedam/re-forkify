@@ -94,14 +94,16 @@ function Results() {
   const { searchTerm } = useRecipes();
   const { data: recipes, isPending, error } = useAllRecipes(searchTerm);
   const [currentPage, setCurrentPage] = useState(1);
-  
-  useEffect(() => {
-    setCurrentPage(1)
-  },[recipes]) 
-  
-  const paginatedRecipies = recipes?.slice((currentPage - 1) * pageCount,(currentPage -1)* pageCount + pageCount -1)
-  const totalPages = Math.ceil(recipes?.length/pageCount)
 
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [recipes]);
+
+  const paginatedRecipies = recipes?.slice(
+    (currentPage - 1) * pageCount,
+    (currentPage - 1) * pageCount + pageCount - 1,
+  );
+  const totalPages = Math.ceil(recipes?.length / pageCount);
 
   return (
     <div className="flex w-1/4 flex-col justify-between py-6">
@@ -126,16 +128,22 @@ function Results() {
           <span>No recipies found</span>
         </div>
       )}
-      {(paginatedRecipies?.length === 0) && (
-          <div className="p-2 text-center text-neutral-700">
-            No recipes or start searching for recipes.
-          </div>,
-        )}
+      {paginatedRecipies?.length === 0 && (
+        <div className="p-2 text-center text-neutral-700">
+          No recipes or start searching for recipes.
+        </div>
+      )}
 
       {paginatedRecipies && <SearchList recipes={paginatedRecipies} />}
 
       <div className="space-y-4">
-        {recipes?.length > 0 && <Pagination currentPage = {currentPage} setCurrentPage={setCurrentPage} totalPages = {totalPages}/>}
+        {recipes?.length > 0 && (
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
+        )}
         <footer className="flex items-center justify-start space-x-1 bg-gradient-to-r from-fuchsia-500 to-blue-500 bg-clip-text px-4 text-[10px] text-transparent">
           <span> Cloned with</span>
           <svg
