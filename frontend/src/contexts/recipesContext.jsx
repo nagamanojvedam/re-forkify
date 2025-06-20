@@ -4,7 +4,7 @@ const RecipesContext = createContext();
 
 function RecipesProvider({ children }) {
   const [searchTerm, setSearchTerm] = useState("");
-  const [recipeId, setRecipeId] = useState("123456789");
+  const [recipeId, setRecipeId] = useState(null);
   const [bookmarks, setBookmarks] = useState(
     () => JSON.parse(localStorage.getItem("bookmarks")) || [],
   );

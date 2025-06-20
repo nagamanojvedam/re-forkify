@@ -8,8 +8,8 @@ const port = process.env.PORT;
 
 mongoose.connect(process.env.MONGODB_URL).then((conn) => {
   console.log("Connected to MongoDB:", conn.connection.name);
-});
 
-app.listen(port, () => {
-  console.log("Server running at port:", port);
+  app.listen(port, () => {
+    console.log("Server running at port:", port);
+  });
 });
