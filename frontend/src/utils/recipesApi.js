@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { apiUrl, apiKey } from "./config";
+const { VITE_API_URL: apiUrl, VITE_API_KEY: apiKey } = import.meta.env;
 
 export const getRecipes = async (search) => {
   const {

@@ -104,8 +104,9 @@
 import Fraction from "fraction.js";
 import { useRecipes } from "../contexts/recipesContext";
 import { useRecipe } from "../hooks/useRecipe";
-import { apiKey } from "../utils/config";
 import { useEffect, useState } from "react";
+
+const { VITE_API_KEY: apiKey } = import.meta.env;
 
 function Recipe() {
   const { bookmarks, recipeId, handleAddBookmark, handleDeleteBookmark } =

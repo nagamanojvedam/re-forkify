@@ -25,3 +25,5 @@ config.js
 *.sw?
 
 utils/config.js
+
+.env

@@ -1,5 +1,5 @@
 import { useRecipes } from "../contexts/recipesContext";
-import { apiKey } from "../utils/config";
+const { VITE_API_KEY: apiKey } = import.meta.env;
 
 function SearchList({ recipes }) {
   return (
