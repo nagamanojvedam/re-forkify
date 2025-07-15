@@ -9,8 +9,8 @@ function AppLayout() {
 
   return (
     <>
-      <div className="flex min-h-dvh items-center justify-center bg-gray-50 px-4">
-        <main className="flex min-h-dvh w-full max-w-6xl flex-col bg-white shadow-md">
+      <div className="flex min-h-dvh items-center justify-center bg-gradient-to-br from-[#f7d686] to-[#f48a82] px-4">
+        <main className="mt-16 flex min-h-screen w-full max-w-6xl flex-col rounded-t-xl bg-white shadow-md">
           <Header />
           <div className="flex flex-col md:flex-row">
             <Results />

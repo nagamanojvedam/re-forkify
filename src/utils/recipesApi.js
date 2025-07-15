@@ -18,7 +18,6 @@ export const getRecipes = async (search) => {
       },
     } = await axiosInstance.get(`/`, {
       params: {
-        ...axiosInstance.defaults.params,
         search,
       },
     });

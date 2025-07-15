@@ -1,106 +1,3 @@
-// const fakeData = {
-//   status: "success",
-//   data: {
-//     recipe: {
-//       publisher: "All Recipes",
-//       ingredients: [
-//         {
-//           quantity: 1.5,
-//           unit: "tsps",
-//           description: "white sugar",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "cup",
-//           description: "warm water",
-//         },
-//         {
-//           quantity: 1.5,
-//           unit: "tsps",
-//           description: "active dry yeast",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "tbsp",
-//           description: "olive oil",
-//         },
-//         {
-//           quantity: 0.5,
-//           unit: "tsp",
-//           description: "salt",
-//         },
-//         {
-//           quantity: 2,
-//           unit: "cups",
-//           description: "all-purpose flour",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "",
-//           description: "can crushed tomatoes",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "tbsp",
-//           description: "packed brown sugar",
-//         },
-//         {
-//           quantity: 0.5,
-//           unit: "tsp",
-//           description: "garlic powder",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "tsp",
-//           description: "olive oil",
-//         },
-//         {
-//           quantity: 0.5,
-//           unit: "tsp",
-//           description: "salt",
-//         },
-//         {
-//           quantity: 3,
-//           unit: "cups",
-//           description: "shredded mozzarella cheese divided",
-//         },
-//         {
-//           quantity: 0.5,
-//           unit: "pound",
-//           description: "bulk italian sausage",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "",
-//           description: "package sliced pepperoni",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "",
-//           description: "package sliced fresh mushrooms",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "",
-//           description: "green bell pepper chopped",
-//         },
-//         {
-//           quantity: 1,
-//           unit: "",
-//           description: "red bell pepper chopped",
-//         },
-//       ],
-//       source_url:
-//         "http://allrecipes.com/Recipe/Double-Crust-Stuffed-Pizza/Detail.aspx",
-//       image_url: "http://forkify-api.herokuapp.com/images/100111309d9.jpg",
-//       title: "Double Crust Stuffed Pizza",
-//       servings: 4,
-//       cooking_time: 120,
-//       id: "664c8f193e7aa067e94e8297",
-//     },
-//   },
-// };
-
 import Fraction from "fraction.js";
 import { useRecipes } from "../contexts/recipesContext";
 import { useRecipe } from "../hooks/useRecipe";
@@ -137,7 +34,7 @@ function Recipe() {
   };
 
   return (
-    <div className="relative min-h-screen w-3/4 bg-[#f9f5f3]">
+    <div className="relative min-h-screen w-3/4 border-l-1 border-neutral-200 bg-[#f9f5f3]">
       {!recipeId && (
         <div className="mx-auto flex w-fit items-center gap-4 p-16">
           <svg

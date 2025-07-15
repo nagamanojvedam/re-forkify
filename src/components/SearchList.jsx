@@ -36,7 +36,7 @@ function Item({ recipe }) {
       <img
         src={recipe.image_url}
         alt={`${recipe.title} image`}
-        className="h-12 w-12 rounded-full"
+        className="h-12 w-12 rounded-full bg-[#f6a882]"
       />
       <div className="relative grow">
         <h2 className="text-[12px] text-[#f6a882]">{truncate(recipe.title)}</h2>

@@ -23,7 +23,7 @@ function RecipeActions() {
     <div className="relative flex">
       {/* Add Recipe Button */}
       <button
-        className="flex cursor-pointer items-center justify-between gap-2 px-6 py-8 hover:bg-[#f2efee]"
+        className="flex cursor-pointer items-center justify-between gap-2 rounded-sm px-6 py-8 hover:bg-[#f2efee]"
         onClick={openModal}
       >
         <svg
@@ -48,7 +48,7 @@ function RecipeActions() {
       {/* Bookmark Button */}
       <div ref={bookmarksRef} className="relative">
         <button
-          className="flex cursor-pointer items-center justify-between gap-2 px-6 py-8 hover:bg-[#f2efee]"
+          className="flex cursor-pointer items-center justify-between gap-2 rounded-sm px-6 py-8 hover:bg-[#f2efee]"
           onClick={() => setShowBookmarks((prev) => !prev)}
           aria-expanded={showBookmarks}
           aria-label="Toggle bookmarks list"
@@ -74,7 +74,7 @@ function RecipeActions() {
 
         {/* Bookmarks Dropdown */}
         {showBookmarks && (
-          <div className="absolute top-[100%] right-[-32px] z-10 max-h-[680px] w-full overflow-y-scroll bg-white shadow-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-[#f2918680] [&::-webkit-scrollbar-track]:bg-gray-100">
+          <div className="absolute top-[calc(100%+16px)] right-[-24px] z-10 max-h-[680px] w-[300px] overflow-y-scroll bg-white shadow-lg [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-thumb]:bg-[#f2918680] [&::-webkit-scrollbar-track]:bg-gray-100">
             {bookmarks.length === 0 ? (
               <div className="flex flex-col items-center gap-2 p-6 text-center">
                 <svg
