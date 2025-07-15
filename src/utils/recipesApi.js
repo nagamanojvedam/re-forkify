@@ -2,66 +2,76 @@ import axios from "axios";
 
 const { VITE_API_URL: apiUrl, VITE_API_KEY: apiKey } = import.meta.env;
 
+const axiosInstance = axios.create({
+  baseURL: apiUrl,
+  params: {
+    key: apiKey,
+  },
+});
+
 export const getRecipes = async (search) => {
-  const {
-    data: {
-      data: { recipes },
-      status,
-    },
-  } = await axios(`${apiUrl}?search=${search}`, {
-    method: "GET",
-    params: {
-      key: apiKey,
-    },
-  });
+  try {
+    const {
+      data: {
+        data: { recipes },
+        status,
+      },
+    } = await axiosInstance.get(`/`, {
+      params: {
+        ...axiosInstance.defaults.params,
+        search,
+      },
+    });
 
-  if (status === "error") throw new Error("Cannot load the recipes");
+    if (status === "error") throw new Error("Failed to fetch recipes");
 
-  return recipes;
+    return recipes;
+  } catch (err) {
+    throw new Error(err.message || "Failed to fetch recipes");
+  }
 };
 
 export const createRecipe = async (newRecipe) => {
-  const {
-    data: {
-      data: { recipe },
-      status,
-    },
-  } = await axios(`${apiUrl}`, {
-    method: "POST",
-    data: newRecipe,
-    params: {
-      key: apiKey,
-    },
-  });
-  if (status === "error") throw new Error("Cannot load the recipes");
+  try {
+    const {
+      data: {
+        data: { recipe },
+        status,
+      },
+    } = await axiosInstance.post(`/`, newRecipe);
+    if (status === "error") throw new Error("Failed to create recipe");
 
-  return recipe;
+    return recipe;
+  } catch (err) {
+    throw new Error(err.message || "Failed to create recipe");
+  }
 };
 
 export const getRecipe = async (id) => {
-  const {
-    data: {
-      data: { recipe },
-      status,
-    },
-  } = await axios(`${apiUrl}/${id}`, {
-    params: {
-      key: apiKey,
-    },
-  });
-  if (status === "error") throw new Error("Cannot load the recipes");
+  try {
+    const {
+      data: {
+        data: { recipe },
+        status,
+      },
+    } = await axiosInstance.get(`/${id}`);
+    if (status === "error") throw new Error("failed to fetch recipe");
 
-  return recipe;
+    return recipe;
+  } catch (err) {
+    throw new Error(err.message || "Failed to fetch recipe");
+  }
 };
 
 export const deleteRecipe = async (id) => {
-  const response = await axios(`${apiUrl}/${id}`, {
-    method: "DELETE",
-    params: {
-      key: apiKey,
-    },
-  });
-  if (response.status === "error") throw new Error("Cannot load the recipes");
+  try {
+    const {
+      data: { status },
+    } = await axiosInstance.delete(`/${id}`);
+    if (status === "error") throw new Error("Failed to delete recipe");
 
-  return response;
+    return status;
+  } catch (err) {
+    throw new Error(err.message || "Failed to delete recipe");
+  }
 };

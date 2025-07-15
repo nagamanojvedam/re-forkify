@@ -17,7 +17,9 @@ function App() {
       <RecipesProvider>
         <AppLayout />
       </RecipesProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {import.meta.env.VITE_REACT_ENV === "development" && (
+        <ReactQueryDevtools initialIsOpen={false} />
+      )}
     </QueryClientProvider>
   );
 }

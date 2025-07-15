@@ -5,6 +5,7 @@ export function useRecipe(id) {
   const { data, isPending, error } = useQuery({
     queryKey: ["recipe", id],
     queryFn: () => getRecipe(id),
+    enabled: Boolean(id),
   });
 
   return { data, isPending, error };

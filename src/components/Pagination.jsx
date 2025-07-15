@@ -1,15 +1,18 @@
 function Pagination({ currentPage, setCurrentPage, totalPages }) {
+  const isFirstPage = currentPage === 1;
+  const isLastPage = currentPage === totalPages;
+
   const incrementPage = () => {
-    if (currentPage !== totalPages) setCurrentPage((prev) => prev + 1);
+    if (!isLastPage) setCurrentPage((prev) => prev + 1);
   };
 
   const decrementPage = () => {
-    if (currentPage !== 1) setCurrentPage((prev) => prev - 1);
+    if (!isFirstPage) setCurrentPage((prev) => prev - 1);
   };
 
   return (
     <div className="flex items-center justify-evenly p-4">
-      {currentPage - 1 !== 0 ? (
+      {!isFirstPage ? (
         <button
           className="cursor-pointer transition-all duration-150 ease-linear hover:scale-110"
           onClick={decrementPage}
@@ -35,7 +38,7 @@ function Pagination({ currentPage, setCurrentPage, totalPages }) {
       <span className="rounded-full bg-[#f9f5f3] px-3 py-1 text-sm font-semibold tracking-wider text-[#f48982]">
         {currentPage}
       </span>
-      {currentPage + 1 <= totalPages ? (
+      {!isLastPage ? (
         <button
           className="cursor-pointer transition-all duration-150 ease-linear hover:scale-110"
           onClick={incrementPage}

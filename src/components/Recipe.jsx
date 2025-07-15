@@ -104,7 +104,7 @@
 import Fraction from "fraction.js";
 import { useRecipes } from "../contexts/recipesContext";
 import { useRecipe } from "../hooks/useRecipe";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 const { VITE_API_KEY: apiKey } = import.meta.env;
 
@@ -112,28 +112,28 @@ function Recipe() {
   const { bookmarks, recipeId, handleAddBookmark, handleDeleteBookmark } =
     useRecipes();
   const { data: recipe, isPending, error } = useRecipe(recipeId);
-
-  const isBookmarked = bookmarks.find((item) => item.id === recipeId);
-
   const [multiplier, setMultiplier] = useState(1);
 
+  const isBookmarked = useMemo(
+    () => bookmarks.find((item) => item.id === recipeId),
+    [bookmarks, recipeId],
+  );
+
   useEffect(() => {
-    setMultiplier(recipe?.servings);
+    if (recipe?.servings) setMultiplier(recipe.servings);
   }, [recipe]);
 
-  const handleDecreaseServings = () => {
-    if (multiplier === 1) setMultiplier(1);
-    else setMultiplier((prev) => prev - 1);
-  };
+  const handleDecreaseServings = () =>
+    setMultiplier((prev) => Math.max(1, prev - 1));
+  const handleIncreaseServings = () => setMultiplier((prev) => prev + 1);
+  const handleBookmark = () =>
+    isBookmarked ? handleDeleteBookmark(recipe.id) : handleAddBookmark(recipe);
+  const calcQuantity = (quantity) => {
+    if (!quantity || !recipe.servings) return "";
 
-  const handleIncreaseServings = () => {
-    setMultiplier((prev) => prev + 1);
-  };
-
-  const handleBookmark = () => {
-    if (isBookmarked) {
-      handleDeleteBookmark(recipe.id);
-    } else handleAddBookmark(recipe);
+    return new Fraction((multiplier / recipe.servings) * quantity).toFraction(
+      true,
+    );
   };
 
   return (
@@ -291,7 +291,7 @@ function Recipe() {
               {/* bookmark button */}
               <button
                 className="cursor-pointer rounded-full bg-gradient-to-r from-[#fbda89] to-[#f48c82] p-2 transition-all duration-100 ease-linear hover:scale-110"
-                onClick={() => handleBookmark()}
+                onClick={handleBookmark}
               >
                 {isBookmarked ? (
                   <svg
@@ -346,18 +346,7 @@ function Recipe() {
                       d="m4.5 12.75 6 6 9-13.5"
                     />
                   </svg>
-
-                  {/* <span>{`${item.quantity !== null ? new Fraction((multiplier / recipe.servings) * item.quantity).toFraction(true) : ""} ${item.unit || ""} ${item.description}`}</span> */}
-                  <span>{`${
-                    item.quantity !== null &&
-                    !isNaN(item.quantity) &&
-                    !isNaN(multiplier) &&
-                    !isNaN(recipe.servings)
-                      ? new Fraction(
-                          (multiplier / recipe.servings) * item.quantity,
-                        ).toFraction(true)
-                      : ""
-                  } ${item.unit || ""} ${item.description}`}</span>
+                  <span>{`${calcQuantity(item.quantity)} ${item.unit || ""} ${item.description}`}</span>
                 </li>
               ))}
             </ul>

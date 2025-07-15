@@ -5,16 +5,16 @@ import Recipe from "./Recipe";
 import Results from "./Results";
 
 function AppLayout() {
-  const { recipeId, isOpenModal } = useRecipes();
+  const { isOpenModal } = useRecipes();
 
   return (
     <>
-      <div className="flex items-center justify-center">
-        <main className="flex min-h-dvh w-6xl flex-col bg-white">
+      <div className="flex min-h-dvh items-center justify-center bg-gray-50 px-4">
+        <main className="flex min-h-dvh w-full max-w-6xl flex-col bg-white shadow-md">
           <Header />
-          <div className="flex">
+          <div className="flex flex-col md:flex-row">
             <Results />
-            <Recipe key={recipeId} />
+            <Recipe />
           </div>
         </main>
       </div>

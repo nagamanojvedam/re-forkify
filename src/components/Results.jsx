@@ -4,90 +4,6 @@ import { useAllRecipes } from "../hooks/useAllRecipes";
 import { useRecipes } from "../contexts/recipesContext";
 import { useEffect, useState } from "react";
 
-// const fakeData = {
-//   status: "success",
-//   results: 53,
-//   data: {
-//     recipes: [
-//       {
-//         publisher: "BBC Good Food",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/2150654_MEDIUM6068.jpg",
-//         title: "Pizza bianco with artichoke hearts",
-//         id: "664c8f193e7aa067e94e897b",
-//       },
-//       {
-//         publisher: "All Recipes",
-//         image_url: "http://forkify-api.herokuapp.com/images/100111309d9.jpg",
-//         title: "Double Crust Stuffed Pizza",
-//         id: "664c8f193e7aa067e94e8297",
-//       },
-//       {
-//         publisher: "Vintage Mixer",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/CauliflowerPizzaCrustRecipe06fdc.jpg",
-//         title: "Cauliflower Pizza Crust Recipe",
-//         id: "664c8f193e7aa067e94e8906",
-//       },
-//       {
-//         publisher: "101 Cookbooks",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/best_pizza_dough_recipe1b20.jpg",
-//         title: "Best Pizza Dough Ever",
-//         id: "664c8f193e7aa067e94e8704",
-//       },
-//       {
-//         publisher: "The Pioneer Woman",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/4364270576_302751a2a4f3c1.jpg",
-//         title: "PW’s Favorite Pizza",
-//         id: "664c8f193e7aa067e94e86ba",
-//       },
-//       {
-//         publisher: "The Pioneer Woman",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/steakhousepizza0b87.jpg",
-//         title: "One Basic Pizza Crust",
-//         id: "664c8f193e7aa067e94e8673",
-//       },
-//       {
-//         publisher: "The Pioneer Woman",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/5278973957_3f9f9a21c2_o7a1b.jpg",
-//         title: "Fig-Prosciutto Pizza with Arugula",
-//         id: "664c8f193e7aa067e94e866f",
-//       },
-//       {
-//         publisher: "The Pioneer Woman",
-//         image_url: "http://forkify-api.herokuapp.com/images/fruitpizza9a19.jpg",
-//         title: "Deep Dish Fruit Pizza",
-//         id: "664c8f193e7aa067e94e8658",
-//       },
-//       {
-//         publisher: "Real Simple",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/pizza_30061a5d763.jpg",
-//         title: "Salami and Brussels Sprouts Pizza",
-//         id: "664c8f193e7aa067e94e8605",
-//       },
-//       {
-//         publisher: "Real Simple",
-//         image_url:
-//           "http://forkify-api.herokuapp.com/images/pizza_300d938bd58.jpg",
-//         title: "English-Muffin Egg Pizzas",
-//         id: "664c8f193e7aa067e94e85be",
-//       },
-
-//       {
-//         publisher: "What's Gaby Cooking",
-//         image_url: "http://forkify-api.herokuapp.com/images/IMG_15866d21.jpg",
-//         title: "Grilled BBQ Chicken Pizza",
-//         id: "664c8f193e7aa067e94e8a12",
-//       },
-//     ],
-//   },
-// };
-
 const pageCount = 10;
 
 function Results() {
@@ -101,7 +17,7 @@ function Results() {
 
   const paginatedRecipies = recipes?.slice(
     (currentPage - 1) * pageCount,
-    (currentPage - 1) * pageCount + pageCount - 1,
+    (currentPage - 1) * pageCount + pageCount,
   );
   const totalPages = Math.ceil(recipes?.length / pageCount);
 

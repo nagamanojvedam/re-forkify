@@ -15,17 +15,24 @@ function RecipesProvider({ children }) {
   const closeModal = () => setIsOpenModal(false);
 
   const handleAddBookmark = (newBookmark) => {
-    setBookmarks((prev) => [...prev, newBookmark]);
-    localStorage.setItem(
-      "bookmarks",
-      JSON.stringify([...bookmarks, newBookmark]),
-    );
+    setBookmarks((prev) => {
+      const updated = [...prev, newBookmark];
+      localStorage.setItem(
+        "bookmarks",
+        JSON.stringify([...bookmarks, newBookmark]),
+      );
+      return updated;
+    });
   };
+
   const handleDeleteBookmark = (bookmarkId) => {
-    const newBookmarks = bookmarks.filter((item) => item.id !== bookmarkId);
-    setBookmarks(newBookmarks);
-    localStorage.setItem("bookmarks", JSON.stringify(newBookmarks));
+    setBookmarks((prev) => {
+      const updated = prev.filter((item) => item.id !== bookmarkId);
+      localStorage.setItem("bookmarks", JSON.stringify(updated));
+      return updated;
+    });
   };
+
   return (
     <RecipesContext.Provider
       value={{
@@ -50,7 +57,7 @@ function useRecipes() {
   const context = useContext(RecipesContext);
 
   if (context === undefined)
-    throw Error("Cannot use recipes context outside its provider");
+    throw Error("useRecipes must be used within a RecipesProvider");
 
   return context;
 }

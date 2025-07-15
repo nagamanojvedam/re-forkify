@@ -1,10 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useRecipes } from "../contexts/recipesContext";
 import { useCreateRecipe } from "../hooks/useCreateRecipe";
+import { useEffect } from "react";
 
 function AddRecipeModal() {
   const { closeModal, setRecipeId } = useRecipes();
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       publisher: "All Recipes",
 
@@ -24,29 +25,42 @@ function AddRecipeModal() {
 
   const { createRecipe, isPending } = useCreateRecipe();
 
+  useEffect(() => {
+    const handleEsc = (evnt) => {
+      if (evnt.key === "Escape") closeModal();
+    };
+
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, [closeModal]);
+
   const onSubmit = async (data) => {
     const ingredients = Array.from({ length: 6 }, (_, i) => {
       let item = data[`ingredient-${i + 1}`];
       delete data[`ingredient-${i + 1}`];
-      if (!item) return undefined;
+      if (!item) return null;
 
-      const [quantity, unit, description] = item.split(",");
+      const [quantity, unit, description] = item.split(",").map((s) => s.trim);
 
-      if (!description) return undefined;
+      if (!description) return null;
 
       return {
-        quantity: +quantity || null,
+        quantity: quantity ? +quantity : null,
         unit: unit || null,
         description: description || null,
       };
     }).filter((item) => item);
 
-    data.ingredients = ingredients;
-    data.cooking_time = +data.cooking_time;
-    data.servings = +data.servings;
+    const recipeData = {
+      ...data,
+      ingredients: ingredients,
+      cooking_time: +data.cooking_time,
+      servings: +data.servings,
+    };
 
-    createRecipe(data, {
+    createRecipe(recipeData, {
       onSuccess: (data) => {
+        reset();
         closeModal();
         setRecipeId(data.id);
       },
@@ -170,6 +184,7 @@ function AddRecipeModal() {
               <div className="mt-6 flex justify-center">
                 <button
                   type="submit"
+                  disabled={isPending}
                   className="flex cursor-pointer items-center justify-center gap-2 rounded-full bg-gradient-to-r from-[#fbda89] to-[#f48c82] px-8 py-2 font-medium text-white transition-all duration-100 ease-linear hover:scale-105"
                 >
                   <svg

@@ -5,22 +5,27 @@ function SearchInput() {
   const { setSearchTerm } = useRecipes();
   const [search, setSearch] = useState("");
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const trimmed = search.trim();
+    if (!trimmed) return;
+
+    setSearchTerm(trimmed);
+    setSearch("");
+  };
+
   return (
-    <div className="relative grow">
+    <form onSubmit={handleSubmit} className="relative grow">
       <input
         type="text"
         placeholder="Search over 1,00,000 recipes..."
         className="w-full rounded-full bg-white px-4 py-2 placeholder:text-neutral-300 focus:outline-2 focus:outline-offset-2 focus:outline-[#f48c828f]"
         value={search}
-        onChange={(evnt) => setSearch(evnt.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
       <button
-        className="absolute top-0 right-0 flex h-full cursor-pointer items-center gap-2 rounded-full bg-gradient-to-r from-[#fbda89] to-[#f48c82] px-8 text-[12px] font-medium text-white uppercase transition-all duration-200 hover:scale-110"
-        onClick={() => {
-          setSearchTerm(search);
-          setSearch("");
-        }}
         type="submit"
+        className="absolute top-0 right-0 flex h-full cursor-pointer items-center gap-2 rounded-full bg-gradient-to-r from-[#fbda89] to-[#f48c82] px-8 text-[12px] font-medium text-white uppercase transition-all duration-200 hover:scale-110"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +43,7 @@ function SearchInput() {
         </svg>
         <span>Search</span>
       </button>
-    </div>
+    </form>
   );
 }
 

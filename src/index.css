@@ -1,28 +1,29 @@
 @import "tailwindcss";
 
+/* Body styling */
 body {
   background: linear-gradient(to bottom right, #f7d686, #f48a82);
   min-height: 100dvh;
-  font-family: "Nunito Sans";
-}
-/* Styling the scrollbar */
-::-webkit-scrollbar {
-  /* width: 8px; */
-  display: none;
+  font-family: "Nunito Sans", sans-serif;
+  overflow-x: hidden;
 }
 
-/* Styling the scrollbar thumb */
+/* Optional: hide scrollbar globally */
+::-webkit-scrollbar {
+  display: none; /* Remove this if you want to show scrollbars */
+}
+
+/* Optional: Scrollbar styling (only if scrollbar is shown) */
 ::-webkit-scrollbar-thumb {
-  background-color: rgb(199, 199, 199); /* #f2918680 in rgba */
+  background-color: rgba(242, 145, 134, 0.5); /* similar to #f2918680 */
   border-radius: 10px;
 }
 
-/* Styling the scrollbar track */
 ::-webkit-scrollbar-track {
-  background-color: #ffffff80; /* Equivalent to gray-100 in Tailwind */
+  background-color: rgba(255, 255, 255, 0.5); /* similar to gray-100 */
 }
 
-/* From Uiverse.io by alexruix */
+/* Loader animation (from Uiverse.io by alexruix) */
 .loader {
   width: 48px;
   height: 48px;
@@ -34,7 +35,7 @@ body {
   content: "";
   width: 48px;
   height: 5px;
-  background: #f48a8250;
+  background: rgba(244, 138, 130, 0.3); /* soft pink shadow */
   position: absolute;
   top: 60px;
   left: 0;

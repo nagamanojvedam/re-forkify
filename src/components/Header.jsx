@@ -4,7 +4,10 @@ import RecipeActions from "./RecipeActions";
 
 function Header() {
   return (
-    <header className="flex items-center justify-between gap-6 bg-[#f9f5f3] px-8">
+    <header
+      className="flex flex-wrap items-center justify-between gap-6 bg-[#f9f5f3] px-6 py-4"
+      role="banner"
+    >
       <Logo />
       <SearchInput />
       <RecipeActions />

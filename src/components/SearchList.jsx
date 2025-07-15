@@ -11,12 +11,27 @@ function SearchList({ recipes }) {
   );
 }
 
+function truncate(str, len = 20) {
+  return str.length > len ? str.slice(0, len) + "..." : str;
+}
+
 function Item({ recipe }) {
   const { recipeId, setRecipeId } = useRecipes();
+
+  const handleClick = () => setRecipeId(recipe.id);
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") handleClick();
+  };
+
+  const isActive = recipe.id === recipeId;
+
   return (
     <li
-      className={`flex cursor-pointer items-center gap-2 px-4 py-3 uppercase transition-all duration-200 ease-linear hover:-translate-y-1 hover:bg-[#f9f5f3] ${recipe.id === recipeId ? "bg-[#f9f5f3]" : ""} `}
-      onClick={() => setRecipeId(recipe.id)}
+      className={`flex cursor-pointer items-center gap-2 px-4 py-3 uppercase transition-all duration-200 ease-linear hover:-translate-y-1 hover:bg-[#f9f5f3] ${isActive ? "bg-[#f9f5f3]" : ""}`}
+      onClick={handleClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
     >
       <img
         src={recipe.image_url}
@@ -24,12 +39,9 @@ function Item({ recipe }) {
         className="h-12 w-12 rounded-full"
       />
       <div className="relative grow">
-        <h2 className="text-[12px] text-[#f6a882]">
-          {recipe.title.length > 20
-            ? recipe.title.slice(0, 20) + "..."
-            : recipe.title}
-        </h2>
+        <h2 className="text-[12px] text-[#f6a882]">{truncate(recipe.title)}</h2>
         <span className="text-[10px] text-[#afabb1]">{recipe.publisher}</span>
+
         {recipe?.key === apiKey && (
           <div className="absolute right-0 bottom-0 rounded-full bg-[#eeeae8] p-1">
             <svg
