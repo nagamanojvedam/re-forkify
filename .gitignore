@@ -26,4 +26,4 @@ config.js
 
 utils/config.js
 
-.env
+*.env
