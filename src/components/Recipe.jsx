@@ -56,7 +56,11 @@ function Recipe() {
           </span>
         </div>
       )}
-      {isPending && recipeId && <div className="loader"></div>}
+      {isPending && recipeId && (
+        <div className="flex h-full items-center justify-center">
+          <div className="loader"></div>
+        </div>
+      )}
       {error && recipeId && (
         <div className="w-3/4 text-center">
           <p className="gap-4 p-16">
